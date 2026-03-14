@@ -1,0 +1,29 @@
+# --- 操作系统与 IDE ---
+.vscode/
+.idea/                          # 忽略 JetBrains IDE 设置 [cite: 9]
+**/.DS_Store                    # 忽略 macOS 临时文件 
+Thumbs.db                       # 忽略 Windows 缩略图缓存
+
+# --- Python 基础 (通用) ---
+__pycache__/                    # 忽略编译后的字节码 
+*.py[cod]                       # 忽略字节码文件 
+*$py.class
+.pytest_cache/                  # 忽略测试缓存 
+.coverage                       # 忽略覆盖率报告 
+
+# --- 环境与私密信息 ---
+.env                            # 忽略通用环境配置文件 
+.env.* # 忽略所有环境变体 
+venv/                           # 忽略虚拟环境文件夹 
+.venv/                          # 忽略常见的虚拟环境命名 
+env/                            # 忽略环境目录 
+
+# --- 通用构建产物 ---
+build/                          # 忽略通用的构建输出 
+dist/                           # 忽略分发包文件夹 
+*.egg-info/                     # 忽略 Python 包元数据 
+*.log                           # 忽略所有日志文件 
+
+# --- 临时/备份文件 ---
+*.bak
+*.swp
