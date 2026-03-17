@@ -1,0 +1,8 @@
+# MetaAgent 依赖（DeepSeek 示例）
+# pip install -r requirements-meta-agent.txt
+
+langchain>=1.0
+langchain-core>=0.3
+langchain-deepseek
+pydantic>=2.0
+python-dotenv
