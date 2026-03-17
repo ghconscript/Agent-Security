@@ -1,0 +1,15 @@
+{
+  "timestamp": "20260315_133658",
+  "repos": [
+    {
+      "repo_path": "D:\\AI_Security_Lab\\demo_repo",
+      "error": "",
+      "entry_file": "agent_demo.py",
+      "entry_line": 3,
+      "entry_name": "run",
+      "params": "[{\"name\": \"message\", \"type_hint\": \"str\", \"required\": false, \"description\": \"要处理的消息，默认为'hello'\"}]",
+      "reason": "该文件只有一个函数run，且函数注释明确标注为'Agent入口：接收一条消息，返回回复'，符合Agent入口的典型特征",
+      "is_method": false
+    }
+  ]
+}

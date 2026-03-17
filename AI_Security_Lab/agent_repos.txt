@@ -1,0 +1,18 @@
+# 待攻击的 Target 列表，每行一个。# 开头为注释
+#
+# 支持写法（推荐显式写前缀，便于前端/多人协作配置）：
+# - http:<base_url>
+#   - 例：http:http://127.0.0.1:8000
+# - inproc:<repo_path>
+#   - 例：inproc:demo_repo
+# - subprocess:<repo_path>[|<venv_python>[|<entry_script>]]
+#   - 例：subprocess:testing-agent|D:\AI_Security_Lab\testing-agent\.venv\Scripts\python.exe|subprocess_entry.py
+#
+# 兼容旧格式：
+# - 直接写 http(s)://... 会被当成 HttpTarget
+# - 直接写路径会被当成本地仓库（先尝试 subprocess，再回退 inproc）
+
+inproc:demo_repo
+# subprocess:testing-agent
+# D:\path\to\other_agent_repo
+http:http://127.0.0.1:8000
