@@ -1,5 +1,6 @@
 # --- 操作系统与 IDE ---
 .vscode/
+/.idea/
 .idea/                          # 忽略 JetBrains IDE 设置 [cite: 9]
 **/.DS_Store                    # 忽略 macOS 临时文件 
 Thumbs.db                       # 忽略 Windows 缩略图缓存
