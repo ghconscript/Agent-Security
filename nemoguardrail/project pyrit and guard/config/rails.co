@@ -1,0 +1,14 @@
+define flow check input safety
+  $is_safe = execute check_pyrit_safety
+
+  if not $is_safe
+    bot refuse to respond
+    abort
+
+define bot refuse to respond
+  "抱歉，您的请求触发了安全策略，我无法回答该问题。\n\n─────────────────\n[🚫 PyRIT 判定：危险内容]"
+
+define flow add pyrit indicator
+  $is_safe = $pyrit_is_safe
+  if $is_safe
+    execute add_safe_indicator

@@ -1,0 +1,40 @@
+models:
+  - type: main
+    engine: openai
+    model: deepseek-chat  # 也可以是 deepseek-reasoner (R1)
+    parameters:
+      openai_api_base: "https://api.deepseek.com"
+      openai_api_key: "sk-d70365bc79eb4b7f9e862df2a2370587"
+
+# Instructions for the LLM (similar to system prompts)
+#instructions:
+#  - type: general
+#    content: |
+#      You are a helpful AI assistant.
+
+# Guardrails configuration
+rails:
+  input:
+    flows:
+      - check input safety
+  output:
+    flows:
+      - add pyrit indicator
+
+# Prompt customization
+#prompts:
+#  - task: self_check_input
+#    content: |
+#      Your task is to check if the user message complies with policy.
+
+# Knowledge base settings
+knowledge_base:
+  embedding_search_provider:
+    name: default
+
+# Tracing and monitoring
+tracing:
+  enabled: true
+  adapters:
+    - name: FileSystem
+      filepath: "./logs/traces.jsonl"
