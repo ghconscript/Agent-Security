@@ -1,0 +1,40 @@
+services:
+  nemo-guardrails:
+    build:
+      context: ./nemoguardrails
+      dockerfile: Dockerfile
+    container_name: nemo_app
+    volumes:
+      - ./config:/nemoguardrails/config/config
+      - ./main.py:/nemoguardrails/main.py
+    environment:
+      - OPENAI_API_KEY=sk-d70365bc79eb4b7f9e862df2a2370587
+    command: ["server", "--config", "/nemoguardrails/config", "--port", "8000", "--default-config-id", "config"]
+    ports:
+      - "8000:8000"
+    depends_on:
+      pyrit-api:
+        condition: service_started
+    networks:
+      - secure-network
+
+  pyrit-api:
+    build:
+      context: .
+      dockerfile: pyrit_api.Dockerfile
+    container_name: pyrit_api
+    volumes:
+      # 挂载 .pyrit/.env 到容器内，让 PyRIT 能读取 API 密钥
+      - ./.pyrit/.env:/root/.pyrit/.env:ro
+    environment:
+      - OPENAI_CHAT_ENDPOINT=https://api.deepseek.com
+      - OPENAI_CHAT_KEY=sk-d70365bc79eb4b7f9e862df2a2370587
+      - OPENAI_CHAT_MODEL=deepseek-chat
+    ports:
+      - "5000:5000"
+    networks:
+      - secure-network
+
+networks:
+  secure-network:
+    driver: bridge
