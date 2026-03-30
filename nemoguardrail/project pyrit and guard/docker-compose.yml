@@ -5,10 +5,10 @@ services:
       dockerfile: Dockerfile
     container_name: nemo_app
     volumes:
-      - ./config:/nemoguardrails/config/config
+      - ./config:/nemoguardrails/config
       - ./main.py:/nemoguardrails/main.py
     environment:
-      - OPENAI_API_KEY=sk-d70365bc79eb4b7f9e862df2a2370587
+      - OPENAI_API_KEY=${OPENAI_KEY}
     command: ["server", "--config", "/nemoguardrails/config", "--port", "8000", "--default-config-id", "config"]
     ports:
       - "8000:8000"
@@ -24,11 +24,14 @@ services:
       dockerfile: pyrit_api.Dockerfile
     container_name: pyrit_api
     volumes:
-      # 挂载 .pyrit/.env 到容器内，让 PyRIT 能读取 API 密钥
-      - ./.pyrit/.env:/root/.pyrit/.env:ro
+      # 挂载上一级用户目录下的 .pyrit 到容器内，让 PyRIT 能读取 API 密钥
+      - C:/Users/LENOVO/.pyrit/.env:/root/.pyrit/.env:ro
+      - C:/Users/LENOVO/.pyrit/.env.local:/root/.pyrit/.env.local:ro
+      - C:/Users/LENOVO/.pyrit/.env:/home/vscode/.pyrit/.env:ro
+      - C:/Users/LENOVO/.pyrit/.env.local:/home/vscode/.pyrit/.env.local:ro
     environment:
       - OPENAI_CHAT_ENDPOINT=https://api.deepseek.com
-      - OPENAI_CHAT_KEY=sk-d70365bc79eb4b7f9e862df2a2370587
+      - OPENAI_CHAT_KEY=${OPENAI_KEY}
       - OPENAI_CHAT_MODEL=deepseek-chat
     ports:
       - "5000:5000"
