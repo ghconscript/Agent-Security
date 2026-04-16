@@ -20,10 +20,13 @@ class SubprocessTarget:
         repo_path: str | Path,
         venv_python: str,
         entry_script: str = "subprocess_entry.py",
+        *,
+        identifier: str = "",
     ) -> None:
         self.repo_path = Path(repo_path).resolve()
         self.venv_python = Path(venv_python).resolve()
         self.entry_script = entry_script
+        self.identifier = identifier
 
     def run(self, message: str, **kwargs: Any) -> str:
         payload = json.dumps({"input": message, **kwargs}, ensure_ascii=False)
@@ -40,3 +43,23 @@ class SubprocessTarget:
         data = json.loads(proc.stdout.decode("utf-8") or "{}")
         return str(data.get("output", data))
 
+    def healthcheck(self) -> bool:
+        if not self.venv_python.is_file():
+            return False
+        script = self.repo_path / self.entry_script
+        if not script.is_file():
+            return False
+        try:
+            self.run("__registry_ping__")
+            return True
+        except Exception:
+            return False
+
+    def describe(self) -> dict[str, Any]:
+        return {
+            "target_kind": "subprocess",
+            "identifier": self.identifier or str(self.repo_path),
+            "entry_file": self.entry_script,
+            "entry_name": "subprocess_entry",
+            "run_param_name": "message",
+        }

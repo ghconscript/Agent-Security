@@ -1,0 +1,8 @@
+# 基于上一轮 trial_llm2 的下一轮建议（自适应，非随机）
+
+# direct_prompt_injection 攻击易被判定成功（≈80%）：建议升维——试 environment_poisoning（需 agent 标签与真题匹配）。
+
+# 示例：只跑建议族（按你 registry 里 agent 标签会再筛选）
+python runner.py --experiment-id trial_llm2_wave2 --families rag_indirect_injection,memory_poisoning
+
+# 环境投毒需对应 agent 带 rag/stateful 等标签，且 poisoner 已接真系统时才有意义。

@@ -1,0 +1,2 @@
+﻿experiment_id,agent_id,agent_tags,target_kind,attack_id,attack_family,delivery_mode,prompt_sent,agent_reply,attack_success,refusal_detected,task_deviation,final_label,scorer_type,error,defense_enabled,defense_profile,benchmark_included,timestamp
+v1_dummy8011,first_agent_fastapi,"['chat', 'rag', 'tool', 'stateless', 'http']",http,,,,,,False,False,True,execution_error,,build_http_target: RuntimeError: HTTP healthcheck failed,False,baseline,True,2026-04-15T03:22:44.641652+00:00

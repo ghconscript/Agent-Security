@@ -1,0 +1,24 @@
+# 与 agents.yaml 中的 id 对应；同一池内按顺序：前者优先，便于「容量不够时换下一个」或定时轮换。
+# runner:
+#   --pool http_slot              只跑池内列出的 agent（按顺序全部跑）
+#   --pool-rotate-index K         与 --pool 合用，只跑池中第 K%len 个（轮换占坑）
+#   --pool-failover POOL          从前往后找第一个 healthcheck 通过的，只跑该 agent（替补）
+#   --agent-ids id1,id2           只跑指定 id（可与 --pool 求交）
+
+pools:
+  # 示例：两台 dummy 互为备份，failover 时谁先活跑谁
+  http_dummy_failover:
+    - dummy_http_8011
+    - dummy_http_8012
+
+  # 示例：全量 HTTP 评测顺序（先真模型再 dummy）
+  http_all_ordered:
+    - first_agent_fastapi
+    - dummy_http_8011
+    - dummy_http_8012
+
+  # 仅占位轮换：配合 cron 每天改 --pool-rotate-index 0/1/2
+  http_rotate_slot:
+    - dummy_http_8011
+    - dummy_http_8012
+    - first_agent_fastapi
