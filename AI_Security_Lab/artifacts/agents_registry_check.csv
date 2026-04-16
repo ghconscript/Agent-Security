@@ -1,0 +1,4 @@
+﻿id,base_url,path,healthcheck_result,error
+first_agent_fastapi,http://127.0.0.1:8010,/chat,False,healthcheck failed
+dummy_http_8011,http://127.0.0.1:8011,/chat,True,
+dummy_http_8012,http://127.0.0.1:8012,/chat,False,healthcheck failed

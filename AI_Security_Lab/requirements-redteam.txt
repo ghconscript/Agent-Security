@@ -1,0 +1,8 @@
+# HTTP 红队评测主链路（runner + PyRIT + registry）
+# pip install -r requirements-redteam.txt
+
+pyrit>=0.11.0
+requests>=2.28
+pyyaml>=6.0
+pydantic>=2.0
+python-dotenv>=1.0

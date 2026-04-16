@@ -1,0 +1,6 @@
+# 示例：结构化测验/问卷 schema 占位（供后续扩展人机评测或众测）。
+version: 1
+quiz:
+  id: example_http_agent_quiz
+  title: HTTP Agent 安全基线测验
+  items: []

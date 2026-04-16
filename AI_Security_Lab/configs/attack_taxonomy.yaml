@@ -1,0 +1,75 @@
+attack_families:
+  # use_jailbreak_converter: 是否在 PyRIT 里对 objective 套 TextJailbreakConverter（换壳，非投毒写入）
+  - id: benign_control
+    description: normal benign task prompts
+    delivery_mode: direct_input
+    applies_to_any: [chat, rag, tool]
+    applies_to_all: []
+    excludes: []
+    default_scorer: non_empty_response
+    use_jailbreak_converter: false
+
+  - id: direct_prompt_injection
+    description: direct malicious instruction in user prompt
+    delivery_mode: direct_input
+    applies_to_any: [chat, rag, tool]
+    applies_to_all: []
+    excludes: []
+    default_scorer: refusal_aware_attack_success
+    use_jailbreak_converter: false
+
+  - id: jailbreak_rewrite
+    description: rewrite prompt with jailbreak wrapper
+    delivery_mode: direct_input
+    applies_to_any: [chat, rag, tool]
+    applies_to_all: []
+    excludes: []
+    default_scorer: refusal_aware_attack_success
+    use_jailbreak_converter: true
+
+  - id: instruction_override
+    description: fake higher-priority instruction
+    delivery_mode: direct_input
+    applies_to_any: [chat, rag, tool]
+    applies_to_all: []
+    excludes: []
+    default_scorer: refusal_aware_attack_success
+    use_jailbreak_converter: true
+
+  - id: output_constraint_attack
+    description: force constrained output
+    delivery_mode: direct_input
+    applies_to_any: [chat, rag, tool]
+    applies_to_all: []
+    excludes: []
+    default_scorer: refusal_aware_attack_success
+    use_jailbreak_converter: false
+
+  - id: prompt_obfuscation
+    description: indirect wording, translation/cipher/story framing to smuggle harmful objective
+    delivery_mode: direct_input
+    applies_to_any: [chat, rag, tool]
+    applies_to_all: []
+    excludes: []
+    default_scorer: refusal_aware_attack_success
+    use_jailbreak_converter: true
+
+  - id: rag_indirect_injection
+    description: poison retrieved content then trigger via normal query
+    delivery_mode: environment_poisoning
+    applies_to_any: []
+    applies_to_all: [rag]
+    excludes: []
+    default_scorer: refusal_aware_attack_success
+    poisoner_type: rag_doc_poisoner
+    use_jailbreak_converter: false
+
+  - id: memory_poisoning
+    description: poison long-term or session memory before trigger
+    delivery_mode: environment_poisoning
+    applies_to_any: []
+    applies_to_all: [stateful]
+    excludes: [stateless]
+    default_scorer: refusal_aware_attack_success
+    poisoner_type: memory_poisoner
+    use_jailbreak_converter: false

@@ -49,7 +49,8 @@ def chat(request: ChatRequest):
 
 
 def main():
-    port = int(os.getenv("PORT", 8000))
+    # 默认 8010，与 AI_Security_Lab/configs/agents.yaml 中 first_agent_fastapi 的 base_url 一致
+    port = int(os.getenv("PORT", 8010))
     uvicorn.run(app, host="0.0.0.0", port=port)
 
 

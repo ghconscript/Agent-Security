@@ -1,0 +1,23 @@
+[
+  {
+    "id": "first_agent_fastapi",
+    "base_url": "http://127.0.0.1:8010",
+    "path": "/chat",
+    "healthcheck_result": false,
+    "error": "healthcheck failed"
+  },
+  {
+    "id": "dummy_http_8011",
+    "base_url": "http://127.0.0.1:8011",
+    "path": "/chat",
+    "healthcheck_result": true,
+    "error": ""
+  },
+  {
+    "id": "dummy_http_8012",
+    "base_url": "http://127.0.0.1:8012",
+    "path": "/chat",
+    "healthcheck_result": false,
+    "error": "healthcheck failed"
+  }
+]

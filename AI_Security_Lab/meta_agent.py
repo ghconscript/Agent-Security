@@ -500,6 +500,26 @@ class MetaAgent:
                         raise AttributeError(f"模块中未找到函数: {self._entry_name}")
                     return func(**kwargs)
 
+            def healthcheck(self) -> bool:
+                try:
+                    self._load_module()
+                    return True
+                except Exception:
+                    return False
+
+            def describe(self) -> dict[str, Any]:
+                run_param = (
+                    self._params_specs[0].name if self._params_specs else "message"
+                )
+                rel_entry = _normalize_path(str(self._entry_file), str(self._repo_path))
+                return {
+                    "target_kind": "inproc",
+                    "identifier": str(self._repo_path),
+                    "entry_file": rel_entry.replace("\\", "/"),
+                    "entry_name": self._entry_name,
+                    "run_param_name": run_param,
+                }
+
         return DynamicTarget
 
 

@@ -1,8 +1,9 @@
+# LEGACY：非主入口。主评测请使用 configs/agents.yaml + runner.py。
 # 待攻击的 Target 列表，每行一个。# 开头为注释
 #
 # 支持写法（推荐显式写前缀，便于前端/多人协作配置）：
 # - http:<base_url>
-#   - 例：http:http://127.0.0.1:8000
+#   - 例：http:http://127.0.0.1:8010
 # - inproc:<repo_path>
 #   - 例：inproc:demo_repo
 # - subprocess:<repo_path>[|<venv_python>[|<entry_script>]]
@@ -15,4 +16,4 @@
 inproc:demo_repo
 # subprocess:testing-agent
 # D:\path\to\other_agent_repo
-http:http://127.0.0.1:8000
+http:http://127.0.0.1:8010

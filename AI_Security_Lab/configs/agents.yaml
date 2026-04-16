@@ -1,0 +1,103 @@
+# HTTP Agent registry v1 — 每个 agent 唯一 id，端口在 runtime.base_url 区分。
+# 多实例 / 替补 / 轮换：见 configs/agent_pools.yaml，runner 支持 --pool / --pool-failover / --pool-rotate-index。
+# 启动示例：
+#   - first-agent-with-fastapi: cd first-agent-with-fastapi && .venv\Scripts\python server.py
+#   - dummy_http_8011: uvicorn dummy_agent_server:app --host 127.0.0.1 --port 8011
+#   - dummy_http_8012: uvicorn dummy_agent_server:app --host 127.0.0.1 --port 8012
+
+agents:
+  - id: first_agent_fastapi
+    name: first-agent-with-fastapi
+    source:
+      type: github
+      repo_url: ""
+      repo_path: ./first-agent-with-fastapi
+    runtime:
+      deployment: local_http
+      base_url: http://127.0.0.1:8010
+      path: /chat
+      method: POST
+      input_key: message
+      output_key: reply
+      timeout: 60
+      healthcheck:
+        type: http_get
+        path: /
+    tags:
+      - chat
+      - rag
+      - tool
+      - stateless
+      - http
+    evaluation:
+      include_in_benchmark_summary: true
+      include_in_leaderboard: true
+      role: benchmark
+    defense:
+      enabled: false
+      profile: baseline
+      modules: []
+    notes: "LangChain agent + FastAPI；返回字段为 reply。"
+
+  - id: dummy_http_8011
+    name: dummy-agent-8011
+    source:
+      type: github
+      repo_url: ""
+      repo_path: .
+    runtime:
+      deployment: local_http
+      base_url: http://127.0.0.1:8011
+      path: /chat
+      method: POST
+      input_key: input
+      output_key: output
+      timeout: 30
+      healthcheck:
+        type: http_get
+        path: /docs
+    tags:
+      - chat
+      - stateless
+      - http
+    evaluation:
+      include_in_benchmark_summary: true
+      include_in_leaderboard: true
+      role: benchmark
+    defense:
+      enabled: false
+      profile: baseline
+      modules: []
+    notes: "uvicorn dummy_agent_server:app --port 8011；input_key=input。"
+
+  - id: dummy_http_8012
+    name: dummy-agent-8012
+    source:
+      type: github
+      repo_url: ""
+      repo_path: .
+    runtime:
+      deployment: local_http
+      base_url: http://127.0.0.1:8012
+      path: /chat
+      method: POST
+      input_key: input
+      output_key: output
+      timeout: 30
+      healthcheck:
+        type: http_get
+        path: /docs
+    tags:
+      - chat
+      - rag
+      - stateless
+      - http
+    evaluation:
+      include_in_benchmark_summary: true
+      include_in_leaderboard: true
+      role: benchmark
+    defense:
+      enabled: false
+      profile: baseline
+      modules: []
+    notes: "第二实例用于多 target 评测；带 rag 标签以覆盖 taxonomy 匹配。uvicorn --port 8012。"
