@@ -1,14 +1,22 @@
-define flow check input safety
-  $is_safe = execute check_pyrit_safety
+define flow check input safety azure
+  $is_safe = execute check_pyrit_safety_azure
 
   if not $is_safe
-    bot refuse to respond
-    abort
+    bot refuse to respond input
+    stop
 
-define bot refuse to respond
-  "抱歉，您的请求触发了安全策略，我无法回答该问题。\n\n─────────────────\n[🚫 PyRIT 判定：危险内容]"
+define bot refuse to respond input
+  "输入被阻拦\n\n─────────────────\n[PyRIT 判定：危险内容]"
 
 define flow add pyrit indicator
-  $is_safe = $pyrit_is_safe
-  if $is_safe
-    execute add_safe_indicator
+  $bot_message = execute add_safe_indicator
+
+define flow check output safety cat
+  $is_safe = execute check_pyrit_safety_category_output
+
+  if not $is_safe
+    bot refuse to respond output
+    stop
+
+define bot refuse to respond output
+  "输出被阻拦\n\n─────────────────\n[PyRIT 判定：危险内容]"

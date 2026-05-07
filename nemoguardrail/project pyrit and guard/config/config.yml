@@ -4,7 +4,7 @@ models:
     model: deepseek-chat  # 也可以是 deepseek-reasoner (R1)
     parameters:
       openai_api_base: "https://api.deepseek.com"
-      openai_api_key: "sk-d70365bc79eb4b7f9e862df2a2370587"
+
 
 # Instructions for the LLM (similar to system prompts)
 #instructions:
@@ -16,10 +16,11 @@ models:
 rails:
   input:
     flows:
-      - check input safety
+      - check input safety azure
+      #- check input safety 
   output:
     flows:
-      - add pyrit indicator
+      - check output safety cat
 
 # Prompt customization
 #prompts:
